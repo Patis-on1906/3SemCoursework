@@ -1,15 +1,10 @@
 namespace Coursework.Backend;
+using Enums;
 
 public class Activity
 {
-    public enum ActivityType
-    {
-        Lection,
-        Laboratory,
-        Practice
-    }
-    
     private int _hours;
+    private readonly ILecturerAssignment _assignmentService;
     public string Name { get; set; }
     public ActivityType Type { get; set; }
     
@@ -27,18 +22,18 @@ public class Activity
         }
     }
 
-    public Activity(int hours, string name, ActivityType type)
+    public Activity(int hours, string name, ActivityType type, ILecturerAssignment assignmentService)
     {
         Hours = hours;
         Name = name;
         Type = type;
+        _assignmentService = assignmentService;
     }
     
     public void AssignLecturer(Lecturer lecturer)
     {
-        if (!lecturer.CheckPosition(Type))
-            throw new InvalidOperationException($"Преподаватель {lecturer.FullName} не может вести {Type}");
-        
+        if (!_assignmentService.CanTeach(lecturer, this))
+            throw new InvalidOperationException($"Преподаватель {lecturer} не может вести дисциплину {Name}");
         _assignedLecturers.Add(lecturer);
     }
 

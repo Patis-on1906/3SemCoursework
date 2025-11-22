@@ -2,8 +2,10 @@ namespace Coursework.Backend;
 
 public class StudentGroup
 {
+    private const int AverageGroupSize = 40;
+    
     private string _name;
-    private readonly List<Student> _students = new(40);
+    private readonly List<Student> _students = new(AverageGroupSize);
 
     public IReadOnlyList<Student> Students => _students;
     
@@ -20,15 +22,13 @@ public class StudentGroup
 
     public StudentGroup(string name)
     {
-        _name = name;
+        Name = name;
     }
 
     public void AddStudent(Student student)
     {
-        if (_students.Contains(student))
-            throw new InvalidOperationException($"Студент {student.FullName} " +
-                                                $"уже есть в группе {Name}");
-        _students.Add(student);
+        _students.AddUnique(student, 
+            $"Студент {student.FullName}", $"группе {Name}");
     }
 
     public void RemoveStudent(Student student)

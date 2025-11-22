@@ -2,7 +2,7 @@ namespace Coursework.Backend;
 
 public class Department
 {
-    public string Name { get; set; }
+    public string Name { get; private set; }
     
     private readonly List<StudentGroup> _studentGroups = new();
     public IReadOnlyList<StudentGroup> StudentGroups => _studentGroups;
@@ -17,10 +17,8 @@ public class Department
 
     public void AddGroup(StudentGroup studentGroup)
     {
-        if (_studentGroups.Contains(studentGroup))
-            throw new InvalidOperationException($"Группа {studentGroup.Name} " +
-                                                $"уже прикреплена к кафедре.");
-        _studentGroups.Add(studentGroup);
+        _studentGroups.AddUnique(studentGroup,
+            $"Группа {studentGroup.Name}", $"кафедре {Name}");
     }
 
     public void RemoveGroup(StudentGroup studentGroup)
@@ -30,10 +28,8 @@ public class Department
 
     public void AddLecturer(Lecturer lecturer)
     {
-        if (_lecturers.Contains(lecturer))
-            throw new InvalidOperationException($"Преподаватель {lecturer.FullName} " +
-                                                $"уже работает на этой кафедре");
-        _lecturers.Add(lecturer);
+       _lecturers.AddUnique(lecturer, 
+           $"Преподаватель {lecturer.FullName}", $"кафедре {Name}");
     }
 
     public void RemoveLecturer(Lecturer lecturer)

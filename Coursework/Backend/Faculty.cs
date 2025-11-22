@@ -14,10 +14,8 @@ public class Faculty
 
     public void AddDepartment(Department department)
     {
-        if (_departments.Contains(department))
-            throw new InvalidOperationException($"Кафедра {department.Name} " +
-                                                $"уже прикреплена к факультету {Name}");
-        _departments.Add(department);
+        _departments.AddUnique(department,
+            $"Кафедра {department.Name}", $"факультете {Name}");
     }
 
     public void RemoveDepartment(Department department)

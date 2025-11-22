@@ -1,15 +1,13 @@
 namespace Coursework.Backend;
+using Enums;
 
 public class Discipline
 {
-    public enum ControlForm
-    {
-        Credit, DifferentialCredit, Exam
-    }
+    private const int MaxNumberActivities = 3;
     
     private string _name;
     private int _semester;
-    private readonly List<Activity> _activities = new(3);
+    private readonly List<Activity> _activities = new(MaxNumberActivities);
     
     public IReadOnlyList<Activity> Activities => _activities;
     public ControlForm FormControl { get; set; }
