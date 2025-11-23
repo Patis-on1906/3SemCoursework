@@ -14,7 +14,7 @@ public sealed class Student : Person
         set
         {
             if (value < 1 || value > 5)
-                throw new ArgumentOutOfRangeException(nameof(value), "Курс не может быть от 1 до 5");
+                throw new ArgumentOutOfRangeException(nameof(value), "Курс должен быть от 1 до 5");
             _course = value;
         }
     }
