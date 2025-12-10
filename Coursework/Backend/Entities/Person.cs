@@ -1,6 +1,6 @@
 namespace Coursework.Backend;
 
-public abstract class Person
+public abstract class Person : Entity
 {
     private string _fullName;
     public string Faculty { get; set; }

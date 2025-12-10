@@ -1,7 +1,7 @@
 namespace Coursework.Backend;
 using Enums;
 
-public class Discipline
+public class Discipline : Entity
 {
     private const int MaxNumberActivities = 3;
     

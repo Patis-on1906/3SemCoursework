@@ -1,6 +1,6 @@
 namespace Coursework.Backend;
 
-public class StudentGroup
+public class StudentGroup : Entity
 {
     private const int AverageGroupSize = 40;
     
